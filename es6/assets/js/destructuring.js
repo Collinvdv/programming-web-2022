@@ -1,15 +1,18 @@
 // -------------------------------------------------------------------------
 // ES 5 
 // -------------------------------------------------------------------------
-// var user = {
-//   name: "Van der Vorst",
-//   firstname: "Collin",
-//   age: 30
-// };
+const user = {
+  name: "Van der Vorst",
+  firstname: "Collin",
+  age: 30
+};
 
-// var name = user.name;
-// var firstname = user.firstname;
-// var age = user.age;
+const { firstname } = user;
+
+const goats = ["T-rex", "Connie", "Clyde"];
+const [goat1, ...otherGoats] = goats;
+console.log(goat1);
+console.log(otherGoats);
 
 // -------------------------------------------------------------------------
 // ES 6

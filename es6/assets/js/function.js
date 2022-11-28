@@ -1,14 +1,36 @@
 // -------------------------------------------------------------------------
 // ES 5 
 // -------------------------------------------------------------------------
-var square = function(number) {
+// var square = function(number) {
+//   return number * number;
+// };
+
+// square(5);
+
+function square2(number) {
   return number * number;
-};
+}
+
+square2(5);
 
 
 // -------------------------------------------------------------------------
 // ES 6 
 // -------------------------------------------------------------------------
+
+const oppervlakteVierkant = (lengte, breedte) => {
+  return lengte * breedte;
+};
+
+console.log(oppervlakteVierkant(5, 10));
+
+const oppervlakteVierkant2 = (lengte, breedte) =>  lengte * breedte;
+
+console.log(oppervlakteVierkant2(5, 10));
+
+const square = number => number * number;
+console.log(square(5));
+
 
 // -------------------------------------------------------------------------
 // Multiple parameters

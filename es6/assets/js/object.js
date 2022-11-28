@@ -1,12 +1,22 @@
 // -------------------------------------------------------------------------
 // ES 5 
 // -------------------------------------------------------------------------
-// var person = {
-//   name: "Collin",
-//   sayHi: function() {
-//     console.log("How you doing, I am " + this.name);
-//   }
-// };
+let person = {
+  name: "Collin",
+  sayHi() {
+    console.log("How you doing, I am " + this.name);
+  },
+    setName: (name) => {
+        console.log(this.name, name);
+        this.name = name;
+        
+  }
+};
+
+// person.name = "Collina";
+// person["name"] = "Collintje";
+person.setName("Collina");
+console.log(person);
 
 // // 2 ways to call something from an object
 // person.name = "Collin Van der vorst";

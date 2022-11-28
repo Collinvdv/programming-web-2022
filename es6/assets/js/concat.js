@@ -11,10 +11,10 @@
 // ES 5 
 // Problem with block scope
 // -------------------------------------------------------------------------
-// const firstname = "Collin";
-// const familyname = "Van der Vorst";
-// const fullname = `${firstname} ${familyname}`;
-// console.log(fullname);
+const firstname = "Collin";
+const familyname = "Van der Vorst";
+const fullname = `${firstname} "Awesome Zaddyyy" ${familyname}`;
+console.log(fullname);
 
 
 

@@ -1,6 +1,47 @@
 // -------------------------------------------------------------------------
 // ES 6: Map
 // -------------------------------------------------------------------------
+let grades = [18, 10, 20, 14];
+grades = grades.map(grade => grade / 2)
+
+console.log(grades);
+
+let products = [
+    {
+        name: "Hair products",
+        price: 54,
+        isBlackFridayProduct: true
+    },
+    {
+        name: "Skincare products",
+        price: 30,
+        isBlackFridayProduct: true
+    },
+    {
+        name: "Drops",
+        price: 100,
+        isBlackFridayProduct: false
+    },
+];
+
+let productsWithVat = products.map((product) => {
+    product.priceWithVat = product.price * 1.21
+    return product;
+});
+
+console.log(productsWithVat);
+
+let blackFridayProducts = productsWithVat.filter((product) => product.isBlackFridayProduct == true);
+console.log(blackFridayProducts);
+
+for (var index = 0; index < blackFridayProducts.length; index++) {
+    console.log(blackFridayProducts[index].name)
+}
+
+
+blackFridayProducts.forEach((item, index) => {
+    console.log(`${index}. ${item.name} price is ${item.priceWithVat}`);
+})
 // const firstArray = [1, 2, 3, 4];
 // const secondArray = firstArray.map((x) => x * 2);
 // console.log(secondArray); // [2, 4, 6, 
