@@ -1,5 +1,9 @@
 <template>
-  <div>
+  <div 
+    class="c-card"
+    :class="getClassCard()"
+    >
+    <!-- :class="{ 'c-card--red' : isError}" -->
     <h2>
       {{ title.toUpperCase() }}
     </h2>
@@ -17,18 +21,12 @@
       </li>
     </ul>
 
-    <ul>
-      <li v-for="(user, index) in users" :key="index">
-        {{ user }}
-      </li>
-    </ul>
-
     <div v-if="showButtons">
-      <button @click="addOne()" :disabled="isButtonsDisabled">
+      <button @click="changeCounter(1)" :disabled="isButtonsDisabled">
         Plus one
       </button>
       
-      <button @click="minusOne()" :disabled="isButtonsDisabled">
+      <button @click="changeCounter(-1)" :disabled="isButtonsDisabled">
         Minus one
       </button>
     </div>
@@ -36,11 +34,15 @@
     <a :href="link" v-if="link">
       Visit the website
     </a>
+
+    <button @click="changeTitle">
+      Execute a method from my parent component
+    </button>
   </div>
 </template>
 
 <script>
-export default {
+  export default {
     // The name of the component
     name: 'Card',
     // Properties from outside of component
@@ -48,7 +50,8 @@ export default {
       title: String,
       showButtons: Boolean,
       isButtonsDisabled: Boolean,
-      link: String
+      link: String,
+      isError: Boolean
     },
     // Data is for internal use
     data() {
@@ -64,15 +67,40 @@ export default {
     },
     // Functionalities connected with template
     methods: {
-      addOne() {
-        // Why is it possible to change properties???? @todo -> announcement 
-        this.counter++;
+      // Why is it possible to change properties???? @todo -> announcement 
+      changeCounter(number) {
+        this.counter += number
       },
-      minusOne() {
-        this.counter--;
+
+      getClassCard() {
+        if (this.isError) {
+          return "c-card--red"
+        }
+
+        return ""
       },
+
+      changeTitle() {
+        this.$emit("changeTitle");
+      }
     },
-    
   }
 </script>
+
+<style>
+  /* 
+    BEM 
+    Block : c-[component]
+    Element: c-[component]__title
+    Modifier: c-[component]--modifier
+  */
+  .c-card {
+    background-color: lightgreen;
+    margin: 20px;
+  }
+
+  .c-card--red {
+    background-color: red;
+  }
+</style>
 
