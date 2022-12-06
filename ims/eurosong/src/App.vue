@@ -1,53 +1,38 @@
 <template>
   <div id="app">
-    <h1>
-      {{ title }}
-    </h1>
+    <!-- Navigatie -->
+    <nav>
+      <ul>
+        <li v-for="(page, index) in pages" :key="index" @click="setActivePage(page)">
+          {{ page }}
+        </li>
+      </ul>
+    </nav>
 
-    <CardComponent 
-      v-for="(card, index) in cards"
-      :key="index"
-      :cardTitle="card.cardTitle"
-      :cardLink="card.cardLink"
-      :showButtons="card.showButtons"
-      :disabledButtons="card.disabledButtons"
-
-      @titleChange="changeTitle()"
-    />
+    <!-- Pages -->
+    <PageRanking v-if="activePage == 'ranking'"/>
+    <PageHome  v-if="activePage == 'home'"/>
+    <PageVoting  v-if="activePage == 'voting'"/>
   </div>
 </template>
 
 <script>
+
 export default {
-  name: 'App',
+  name: "App",
   data() {
     return {
-      title: "First vue-experience",
-      cards: [
-        {
-          cardTitle: "Card 1",
-          cardLink: "https://google.be",
-          showButtons: true,
-          disabledButtons: true
-        },
-        {
-          cardTitle: "Card 2",
-          cardLink: null,
-          showButtons: true,
-          disabledButtons: false
-        },
-        {
-          cardTitle: "Card 3",
-          cardLink: null,
-          showButtons: false,
-          disabledButtons: false
-        }
+      activePage: "ranking",
+      pages: [
+        "home",
+        "ranking",
+        "voting"
       ]
     }
   },
   methods: {
-    changeTitle() {
-      this.title = "Changed by child component"
+    setActivePage(page) {
+      this.activePage = page;
     }
   }
 }
