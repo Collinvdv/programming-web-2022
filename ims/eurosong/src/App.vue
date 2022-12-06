@@ -1,29 +1,54 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <HelloWorld msg="I LOVE TAILWIND" />
+    <h1>
+      {{ title }}
+    </h1>
+
+    <CardComponent 
+      v-for="(card, index) in cards"
+      :key="index"
+      :cardTitle="card.cardTitle"
+      :cardLink="card.cardLink"
+      :showButtons="card.showButtons"
+      :disabledButtons="card.disabledButtons"
+
+      @titleChange="changeTitle()"
+    />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
   name: 'App',
-  components: {
-    HelloWorld
+  data() {
+    return {
+      title: "First vue-experience",
+      cards: [
+        {
+          cardTitle: "Card 1",
+          cardLink: "https://google.be",
+          showButtons: true,
+          disabledButtons: true
+        },
+        {
+          cardTitle: "Card 2",
+          cardLink: null,
+          showButtons: true,
+          disabledButtons: false
+        },
+        {
+          cardTitle: "Card 3",
+          cardLink: null,
+          showButtons: false,
+          disabledButtons: false
+        }
+      ]
+    }
+  },
+  methods: {
+    changeTitle() {
+      this.title = "Changed by child component"
+    }
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
