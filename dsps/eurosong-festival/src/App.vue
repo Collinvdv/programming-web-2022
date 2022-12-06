@@ -1,58 +1,40 @@
 <template>
   <div id="app">
-    <h1>
-      {{ title }}
-    </h1>
+    <!-- Navigation -->
+    <nav>
+      <ul>
+        <li v-for="(page, index) in pages" :key="index" @click="changePage(page)">
+          {{ page }}
+        </li>
+      </ul>
+    </nav>
 
-    <Card 
-      v-for="(card, index) in cards" 
-      :key="index"
-
-      :title="card.title"
-      :showButtons="card.showButtons"
-      :isButtonsDisabled="card.isButtonsDisabled"
-      :link="card.link"
-      :isError="card.isError"
-
-      @changeTitle="changeTitle"
-    ></Card>
-
+    <!-- Pages -->
+    <PageHome v-if="activePage == 'home'"/>
+    <PageRanking v-if="activePage == 'ranking'" />
+    <PageVoting v-if="activePage == 'voting'"/>
   </div>
 </template>
 
 <script>
   export default {
     name: 'App',
-    data() {
-      return {
-        title: "Playground vue.js",
-        cards: [
-          {
-            title: "test 1",
-            showButtons: true,
-            isButtonsDisabled: false,
-            link: "https://youtube.com"
-          },
-          {
-            title: "test 2",
-            showButtons: false,
-            isButtonsDisabled: false,
-            link: null,
-            isError: true
-          },
-          {
-            title: "test 3",
-            showButtons: true,
-            isButtonsDisabled: true,
-            link: null
-          }
-        ]
+    mounted() {
 
-      }
-  },
+    },
+    data() {
+        return {
+          activePage: 'ranking', 
+          pages: [
+            "home",
+            "ranking",
+            "voting"
+          ]
+        }
+    },
     methods: {
-      changeTitle() {
-        this.title = "You changed the title by clicking on a chld component";
+      changePage(page) {
+        this.activePage = page;
       }
     }
   }
