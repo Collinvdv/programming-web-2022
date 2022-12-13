@@ -18,6 +18,15 @@
         <button @click="nextSong()">
             Next song
         </button>
+
+        <hr>
+
+        <!--  Voting buttons-->
+        <div v-for="(button, index) in buttons" :key="'voting-button-'+index">
+            <button @click="vote(button.points, index)" v-if="button.isActive">
+                Vote for {{button.points}} points
+            </button>
+        </div>
    </div>
 </template>
 
@@ -48,7 +57,21 @@
     data() {
         return {
                 songs: [],
-                activeSongIndex: 0
+                activeSongIndex: 0,
+                buttons: [
+                    {
+                        points: 2,
+                        isActive: true
+                    },
+                    {
+                        points: 4,
+                        isActive: true
+                    },
+                    {
+                        points: 8,
+                        isActive: true
+                    }
+                ]
             }
     },
     methods: {
@@ -65,6 +88,13 @@
             } else {
                 this.activeSongIndex--;
             }
+        },
+        vote(points, buttonIndex) {
+            // hide buttons
+            this.buttons[buttonIndex].isActive = false;
+
+            // send a http request
+            console.log("You send a vote for " + points, buttonIndex);
         }
     }
     }
