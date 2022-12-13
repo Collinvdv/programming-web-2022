@@ -4,11 +4,17 @@
         PageVoting
     </h1>
 
+    <!-- Carousel -->
     <div v-for="(song, index) in songs" :key="'song' + index">
         <div v-if="activeSongIndex == index">
             {{ song.artist.name }} - {{ song.title }}
         </div>
     </div>
+
+    <!-- Buttons -->
+    <button @click="goToNextSong()" v-if="activeSongIndex < (songs.length - 1)">
+        Next song
+    </button>
    </div>
 </template>
 
@@ -18,7 +24,7 @@ export default {
     data() {
         return {
             songs: [],
-            activeSongIndex: 1
+            activeSongIndex: 0
         }
     },
     mounted() {
@@ -42,6 +48,15 @@ export default {
                     });
             });
         
+    },
+    methods: {
+        goToNextSong() {
+            if (this.activeSongIndex == this.songs.length - 1) {
+                this.activeSongIndex = 0;
+            } else {
+                this.activeSongIndex++;
+            }
+        }
     }
 }
 </script>
