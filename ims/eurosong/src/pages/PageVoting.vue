@@ -82,8 +82,23 @@ export default {
             this.voteButtons[buttonIndex].isActive = false;
 
             // post vote
-            console.log(this.voteButtons[buttonIndex].points);
-            console.log(this.songs[this.activeSongIndex].id);
+
+            // send a http request
+            fetch("http://webservies.be/eurosong/Votes", {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json, text/plain',
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                body: JSON.stringify({
+                    songID: this.songs[this.activeSongIndex].id,
+                    points: this.voteButtons[buttonIndex].points
+                })
+            }).then((response) => {
+                return response.json()
+            }).then((result) => {
+                console.log(result);
+            })
         },
         goToNextSong() {
             if (this.activeSongIndex == this.songs.length - 1) {
