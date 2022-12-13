@@ -12,9 +12,22 @@
     </div>
 
     <!-- Buttons -->
-    <button @click="goToNextSong()" v-if="activeSongIndex < (songs.length - 1)">
+    <button @click="goToPrevSong()" :disabled="activeSongIndex == 0">
+        prev song
+    </button>
+
+    <button @click="goToNextSong()" :disabled="activeSongIndex == (songs.length - 1)">
         Next song
     </button>
+
+    <hr>
+    
+    <!-- Vote buttons -->
+    <div v-for="(voteButton, index) in voteButtons" :key="'voteButton-' + index">
+        <button @click="vote(index)" v-if="voteButton.isActive">
+            Vote {{ voteButton.points }} points
+        </button>
+    </div>
    </div>
 </template>
 
@@ -24,7 +37,21 @@ export default {
     data() {
         return {
             songs: [],
-            activeSongIndex: 0
+            activeSongIndex: 0,
+            voteButtons: [
+                {
+                    points: 2,
+                    isActive: true
+                },
+                {
+                    points: 4,
+                    isActive: true
+                },
+                {
+                    points: 8,
+                    isActive: true
+                },
+            ]
         }
     },
     mounted() {
@@ -50,12 +77,21 @@ export default {
         
     },
     methods: {
+        vote(buttonIndex) {
+            // Button gehide
+            this.voteButtons[buttonIndex].isActive = false;
+
+        },
         goToNextSong() {
             if (this.activeSongIndex == this.songs.length - 1) {
                 this.activeSongIndex = 0;
             } else {
                 this.activeSongIndex++;
             }
+        },
+
+        goToPrevSong() {
+            this.activeSongIndex--;
         }
     }
 }
