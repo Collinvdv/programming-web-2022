@@ -23,7 +23,7 @@
 
         <!--  Voting buttons-->
         <div v-for="(button, index) in buttons" :key="'voting-button-'+index">
-            <button @click="vote(button.points, index)" v-if="button.isActive">
+            <button @click="vote(index)" v-if="button.isActive">
                 Vote for {{button.points}} points
             </button>
         </div>
@@ -89,12 +89,26 @@
                 this.activeSongIndex--;
             }
         },
-        vote(points, buttonIndex) {
+        vote(buttonIndex) {
             // hide buttons
             this.buttons[buttonIndex].isActive = false;
 
             // send a http request
-            console.log("You send a vote for " + points, buttonIndex);
+            fetch("http://webservies.be/eurosong/Votes", {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json, text/plain',
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                body: JSON.stringify({
+                    songID: this.songs[this.activeSongIndex].id,
+                    points: this.buttons[buttonIndex].points
+                })
+            }).then((response) => {
+                return response.json()
+            }).then((result) => {
+                console.log(result);
+            })
         }
     }
     }
