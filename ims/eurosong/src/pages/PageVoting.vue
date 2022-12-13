@@ -81,6 +81,9 @@ export default {
             // Button gehide
             this.voteButtons[buttonIndex].isActive = false;
 
+            // post vote
+            console.log(this.voteButtons[buttonIndex].points);
+            console.log(this.songs[this.activeSongIndex].id);
         },
         goToNextSong() {
             if (this.activeSongIndex == this.songs.length - 1) {
