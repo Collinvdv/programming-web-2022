@@ -4,28 +4,37 @@
             Page Voting
         </h1>
 
-        <!-- Song carousel -->
-        <div v-for="(song, index) in songs" :key="song.id">
-            <div v-if="activeSongIndex == index">
-                {{song.artist.name}} - {{ song.title}} 
+        <!-- Voting -->
+        <!-- buttons.filter((button) => button.isActive == true).length > 0 -->
+        <div v-if="this.votes != this.buttons.length">
+            <!-- Song carousel -->
+            <div v-for="(song, index) in songs" :key="song.id">
+                <div v-if="activeSongIndex == index">
+                    {{ song.artist.name }} - {{ song.title }}
+                </div>
+            </div>
+
+            <!-- Buttons -->
+            <button @click="prevSong()">
+                Prev song
+            </button>
+            <button @click="nextSong()">
+                Next song
+            </button>
+
+            <hr>
+
+            <!--  Voting buttons-->
+            <div v-for="(button, index) in buttons" :key="'voting-button-' + index">
+                <button @click="vote(index)" v-if="button.isActive">
+                    Vote for {{ button.points }} points
+                </button>
             </div>
         </div>
-
-        <!-- Buttons -->
-        <button @click="prevSong()">
-            Prev song
-        </button>
-        <button @click="nextSong()">
-            Next song
-        </button>
-
-        <hr>
-
-        <!--  Voting buttons-->
-        <div v-for="(button, index) in buttons" :key="'voting-button-'+index">
-            <button @click="vote(index)" v-if="button.isActive">
-                Vote for {{button.points}} points
-            </button>
+        
+        <!-- End voting -->
+        <div v-if="this.votes == this.buttons.length">
+            You don't got any votes anymore
         </div>
    </div>
 </template>
@@ -58,6 +67,7 @@
         return {
                 songs: [],
                 activeSongIndex: 0,
+                votes: 0,
                 buttons: [
                     {
                         points: 2,
@@ -90,6 +100,7 @@
             }
         },
         vote(buttonIndex) {
+            this.votes++;
             // hide buttons
             this.buttons[buttonIndex].isActive = false;
 
