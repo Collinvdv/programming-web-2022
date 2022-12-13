@@ -24,7 +24,7 @@
     },
     data() {
         return {
-          activePage: 'ranking', 
+          activePage: 'voting', 
           pages: [
             "home",
             "ranking",

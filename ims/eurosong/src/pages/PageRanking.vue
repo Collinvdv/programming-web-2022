@@ -1,16 +1,43 @@
 <template>
-   <div>
-    <h1>
-        PageRanking
-    </h1>
-   </div>
+    <div>
+        <h1>
+            PageRanking
+        </h1>
+ 
+        <table border="1">
+            <!-- Heading -->
+            <tr>
+                <th>
+                    Artist
+                </th>
+                <th>
+                    Song
+                </th>
+                <th>
+                    Votes
+                </th>
+            </tr>
+
+            <!-- Data -->
+            <tr v-for="(song, index) in tableData" :key="index">
+                <td>
+                    {{ song.artist.name }}
+                </td>
+                <td>
+                    {{ song.title }}
+                </td>
+                <td>
+                    {{ song.totalPoints }}
+                </td>
+            </tr>
+        </table>
+    </div>
 </template>
 
 <script>
 export default {
     name: 'PageRanking',
     mounted() {
-        console.log("Call naar de API");
         // fetch call naar songs
         fetch('http://webservies.be/eurosong/Songs')
             .then((response) => response.json())
@@ -28,10 +55,15 @@ export default {
                             .then((votes) => {
                                 songs = this.enrichSongsWithVotes(songs, votes)
 
-                                console.log(songs);
+                                this.tableData = songs;
                             });
                     });
             });
+    },
+    data() {
+        return {
+            tableData: []
+        }
     },
     methods: {
         enrichSongsWithArtist(songs, artists) {
