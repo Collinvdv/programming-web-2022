@@ -4,29 +4,38 @@
         PageVoting
     </h1>
 
-    <!-- Carousel -->
-    <div v-for="(song, index) in songs" :key="'song' + index">
-        <div v-if="activeSongIndex == index">
-            {{ song.artist.name }} - {{ song.title }}
+    <!-- Game -->
+    <div v-if="voteButtons.filter((button) => button.isActive).length > 0">
+        <!-- Carousel -->
+        <div v-for="(song, index) in songs" :key="'song' + index">
+            <div v-if="activeSongIndex == index">
+                {{ song.artist.name }} - {{ song.title }}
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <button @click="goToPrevSong()" :disabled="activeSongIndex == 0">
+            prev song
+        </button>
+
+        <button @click="goToNextSong()" :disabled="activeSongIndex == (songs.length - 1)">
+            Next song
+        </button>
+
+        <hr>
+
+        <!-- Vote buttons -->
+        <div v-if="votedSongs.includes(activeSongIndex) == false">
+            <div v-for="(voteButton, index) in voteButtons" :key="'voteButton-' + index">
+                <button @click="vote(index)" v-if="voteButton.isActive">
+                    Vote {{ voteButton.points }} points
+                </button>
+            </div>
         </div>
     </div>
-
-    <!-- Buttons -->
-    <button @click="goToPrevSong()" :disabled="activeSongIndex == 0">
-        prev song
-    </button>
-
-    <button @click="goToNextSong()" :disabled="activeSongIndex == (songs.length - 1)">
-        Next song
-    </button>
-
-    <hr>
-    
-    <!-- Vote buttons -->
-    <div v-for="(voteButton, index) in voteButtons" :key="'voteButton-' + index">
-        <button @click="vote(index)" v-if="voteButton.isActive">
-            Vote {{ voteButton.points }} points
-        </button>
+   
+    <div v-if="voteButtons.filter((button) => button.isActive).length == 0">
+        You voted for everything
     </div>
    </div>
 </template>
@@ -37,6 +46,7 @@ export default {
     data() {
         return {
             songs: [],
+            votedSongs: [],
             activeSongIndex: 0,
             voteButtons: [
                 {
@@ -82,6 +92,7 @@ export default {
             this.voteButtons[buttonIndex].isActive = false;
 
             // post vote
+            this.votedSongs.push(this.activeSongIndex);
 
             // send a http request
             fetch("http://webservies.be/eurosong/Votes", {
