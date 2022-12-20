@@ -17,21 +17,21 @@ export default {
     mounted() {
         // functie wordt automatisch uitgevoerd van zodra het comp
         // zichtbaar is 
-        fetch("http://webservies.be/eurosong/Votes", {
-            method: "POST",
-            headers: {
-                'Accept': 'application/json, text/plain',
-                'Content-Type': 'application/json;charset=UTF-8'
-            },
-            body: JSON.stringify({
-                songID: this.songs[this.activeSongIndex].id,
-                points: this.voteButtons[buttonIndex].points
-            })
-        }).then((response) => {
-            return response.json()
-        }).then((result) => {
-            console.log(result);
-        })
+        // fetch("http://webservies.be/eurosong/Votes", {
+        //     method: "POST",
+        //     headers: {
+        //         'Accept': 'application/json, text/plain',
+        //         'Content-Type': 'application/json;charset=UTF-8'
+        //     },
+        //     body: JSON.stringify({
+        //         songID: this.songs[this.activeSongIndex].id,
+        //         points: this.voteButtons[buttonIndex].points
+        //     })
+        // }).then((response) => {
+        //     return response.json()
+        // }).then((result) => {
+        //     console.log(result);
+        // })
     },
     data() {
         return {
