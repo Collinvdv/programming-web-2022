@@ -22,7 +22,7 @@ export default {
   name: "App",
   data() {
     return {
-      activePage: "voting",
+      activePage: "home",
       pages: [
         "home",
         "ranking",
