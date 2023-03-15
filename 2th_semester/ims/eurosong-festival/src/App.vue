@@ -1,29 +1,61 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-    <HelloWorld msg="Omg, my life is complete now"/>
+    <h1>
+      {{ this.title.toUpperCase() }}
+    </h1>
+
+    <input type="number" v-model="newCounter"/>
+    <button @click="addNewCounter()">
+      Add counter
+    </button>
+
+    <hr>
+
+    New counter : {{  this.newCounter }}
+
+    <hr>
+
+    <CounterComponent 
+      v-for="(counter, index) in this.counters" 
+      :key="index"
+
+      :initialValue="counter"
+    />
+
+
+    <a :href="website" :target="target">
+      Visit my website
+    </a>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+  import CounterComponent from './components/CounterComponent.vue'
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  export default {
+    name: 'App',
+    data() {
+      return {
+        newCounter: 0,
+        title: "counter",
+        website: "https://collinvandervorst.be",
+        target: "_blank",
+        counters: [
+          0,
+          10,
+          20,
+          30,
+          40
+        ]
+      }
+    },
+    components: {
+      CounterComponent
+    },
+    methods: {
+      addNewCounter() {
+        this.counters.push(parseInt(this.newCounter));
+      }
+    }
   }
-}
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
