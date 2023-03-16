@@ -33,7 +33,7 @@
     },
     data() {
       return {
-        activePage: 'Home',
+        activePage: 'Ranking',
         links: [
           "Home",
           "Ranking",
