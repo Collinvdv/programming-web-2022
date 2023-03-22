@@ -14,7 +14,7 @@
 
     <!-- Pages -->
     <PageHome v-if="this.activePage == 'Home'" />
-    <PageVoting v-if="this.activePage == 'Voting'" />
+    <PageVoting v-if="this.activePage == 'Voting'" @setActivePage="setActivePage"/>
     <PageRanking v-if="this.activePage == 'Ranking'" />
   </div>
 </template>
@@ -43,6 +43,7 @@
     },
     methods: {
       setActivePage(page) {
+        console.log(page);
         this.activePage = page;
       },
       getStyleActivePage(page) {
