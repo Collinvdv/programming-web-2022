@@ -8,14 +8,28 @@
     export default {
         name: 'PageVoting',
         mounted() {
-            console.log("Is this page mounted?");
-            fetch("http://webservies.be/eurosong/Songs")
+            this.fetchSongs();
+        },
+        methods: {
+            fetchSongs() {
+                fetch("http://webservies.be/eurosong/Songs")
                 .then(response => {
                     return response.json();
                 })
                 .then(songs => {
-                    console.log(songs);
+                    this.fetchArtists(songs);
                 });
+            },
+
+            fetchArtists(songs) {
+                fetch("http://webservies.be/eurosong/Artists")
+                .then(response => {
+                    return response.json();
+                })
+                .then(artists => {
+                    console.log(artists, songs);
+                });
+            }
         }
     }
 </script>
