@@ -1,29 +1,47 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="I am going to leave school, and start a vue.js career"/>
-    <HelloWorld msg="I am going to leave school, and start a vue.js career"/>
+    <ul>
+      <li v-for="(person, index) in this.persons" :key="`persons-${index}`"> 
+        {{ person }} - {{  persons[index] }}
+      </li>
+    </ul>
+    <h1> Counter Application</h1>
+
+    <CounterComponent 
+      v-for="(counter, index) in this.counterComponents"
+      :key="index"
+      :initialValue="counter.initialValue"/>
+
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+  // Components 
+  import CounterComponent from './components/CounterComponent.vue';
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  // Export 
+  export default {
+    name: 'App',
+    components: {
+      CounterComponent
+    },
+    data() {
+      return {
+        persons: [
+          "John",
+          "Mohammed",
+          "Lisa",
+          "Lee"
+        ],
+        counterComponents: [
+          {
+            initialValue: 5
+          },
+          {
+            initialValue: 15
+          }
+        ]
+      }
+    }
   }
-}
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
