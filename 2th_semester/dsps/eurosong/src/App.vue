@@ -1,46 +1,58 @@
 <template>
   <div id="app">
     <ul>
-      <li v-for="(person, index) in this.persons" :key="`persons-${index}`"> 
-        {{ person }} - {{  persons[index] }}
+      <li v-for="page in this.pages" :key="page.id">
+        <button @click="changeActivePage(page.id)" :disabled="page.disabled">
+          {{ page.text }}
+        </button>
       </li>
     </ul>
-    <h1> Counter Application</h1>
 
-    <CounterComponent 
-      v-for="(counter, index) in this.counterComponents"
-      :key="index"
-      :initialValue="counter.initialValue"/>
-
+    <PageHome v-if="this.activePage == 'home'" />
+    <PageRanking v-if="this.activePage == 'ranking'"/>
+    <PageVoting v-if="this.activePage == 'voting'"/>
   </div>
 </template>
 
 <script>
   // Components 
-  import CounterComponent from './components/CounterComponent.vue';
+  import PageHome from './components/PageHome.vue';
+  import PageRanking from './components/PageRanking.vue';
+  import PageVoting from './components/PageVoting.vue';
 
   // Export 
   export default {
     name: 'App',
     components: {
-      CounterComponent
+      PageHome,
+      PageRanking,
+      PageVoting
     },
     data() {
       return {
-        persons: [
-          "John",
-          "Mohammed",
-          "Lisa",
-          "Lee"
-        ],
-        counterComponents: [
+        "activePage" : null,
+        "pages" : [
           {
-            initialValue: 5
+            id: "home",
+            text: "Home",
+            disabled: false
           },
           {
-            initialValue: 15
-          }
+            id: "ranking",
+            text: "Ranking",
+            disabled: false
+          },
+          {
+            id: "voting",
+            text: "Voting",
+            disabled: true
+          },
         ]
+      }
+    },
+    methods: {
+      changeActivePage(page) {
+        this.activePage = page;
       }
     }
   }
