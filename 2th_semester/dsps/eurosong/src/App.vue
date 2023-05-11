@@ -10,7 +10,7 @@
 
     <PageHome v-if="this.activePage == 'home'" />
     <PageRanking v-if="this.activePage == 'ranking'"/>
-    <PageVoting v-if="this.activePage == 'voting'"/>
+    <PageVoting v-if="this.activePage == 'voting'" @changePage="changeActivePage"/>
   </div>
 </template>
 
