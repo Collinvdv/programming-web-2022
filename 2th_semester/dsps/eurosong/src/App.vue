@@ -30,7 +30,7 @@
     },
     data() {
       return {
-        "activePage" : null,
+        "activePage" : "ranking",
         "pages" : [
           {
             id: "home",
