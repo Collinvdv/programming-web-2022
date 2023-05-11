@@ -30,7 +30,7 @@
     },
     data() {
       return {
-        "activePage" : "ranking",
+        "activePage" : "voting",
         "pages" : [
           {
             id: "home",
@@ -45,7 +45,7 @@
           {
             id: "voting",
             text: "Voting",
-            disabled: true
+            disabled: false
           },
         ]
       }

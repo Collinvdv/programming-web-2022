@@ -14,6 +14,10 @@
                 <th>
                     Artist
                 </th>
+
+                <th>
+                    Points
+                </th>
             </tr>
 
             <!-- Table data -->
@@ -24,6 +28,10 @@
 
                 <td>
                     {{  song.artistObject.name }}
+                </td>
+
+                <td>
+                    {{ song.points }}
                 </td>
             </tr>
         </table>
@@ -45,6 +53,7 @@
                             return response.json()
                         })
                         .then((artists) => {
+                            // mix the songs and artists
                             songs = songs.map(song => {
                                 song.artistObject = artists.find(artist => {
                                     return  artist.id == song.artist
@@ -52,8 +61,35 @@
                                 return song;
                             })
 
-                            console.log(songs);
-                            this.songs = songs;
+                            // save it to song so I can render my table 
+                            // this.songs = songs;
+
+                            // Damn I need votes too, so let me fetch them
+                            fetch("http://webservies.be/eurosong/Votes")
+                                .then((response) => {
+                                    return response.json()
+                                })
+                                .then((votes) => {
+                                    songs = songs.map((song) => {
+                                        song.points = 0;
+
+                                        // filter the votes for this song
+                                        let votesForSongs = votes.filter((vote) => { 
+                                            return vote.songID == song.id;
+                                        })
+
+                                        // calculate the points
+                                        votesForSongs.forEach((vote) => {
+                                            song.points += vote.points;
+                                        })
+
+                                        console.log(votesForSongs)
+                                        return song;
+                                    });
+
+                                    console.log(songs);
+                                    this.songs = songs;
+                                })
                         })
 
                 })
