@@ -11,6 +11,7 @@
     <PageHome v-if="this.activePage == 'home'" />
     <PageRanking v-if="this.activePage == 'ranking'"/>
     <PageVoting v-if="this.activePage == 'voting'" @changePage="changeActivePage"/>
+    <PageArtists v-if="this.activePage == 'artists'"/>
   </div>
 </template>
 
@@ -19,6 +20,7 @@
   import PageHome from './components/PageHome.vue';
   import PageRanking from './components/PageRanking.vue';
   import PageVoting from './components/PageVoting.vue';
+  import PageArtists from './components/PageArtists.vue';
 
   // Export 
   export default {
@@ -26,11 +28,12 @@
     components: {
       PageHome,
       PageRanking,
-      PageVoting
+      PageVoting,
+      PageArtists
     },
     data() {
       return {
-        "activePage" : "voting",
+        "activePage" : "artists",
         "pages" : [
           {
             id: "home",
@@ -45,6 +48,11 @@
           {
             id: "voting",
             text: "Voting",
+            disabled: false
+          },
+          {
+            id: "artists",
+            text: "artists",
             disabled: false
           },
         ]
